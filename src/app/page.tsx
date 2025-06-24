@@ -59,7 +59,7 @@ export default function MetSavingCalculator() {
         1 MET CŨNG MET
       </h1>
       <p className="text-center text-gray-600 mb-6">
-        Bạn chỉ cần đi bước điện, còn lại để MET lo.
+        Chỉ cần vượt ngàn MÉT, còn lại để MET lo.
       </p>
 
       <div className="space-y-5">
