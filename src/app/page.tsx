@@ -1,103 +1,166 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState, useEffect } from "react";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Card, CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { motion } from "framer-motion";
+
+export default function MetSavingCalculator() {
+  const [distance, setDistance] = useState(12);
+  const [vehicle, setVehicle] = useState("Xe tay ga");
+  const [frequency, setFrequency] = useState(5);
+  const [locationEnabled, setLocationEnabled] = useState(true);
+
+  const [gasCost, setGasCost] = useState(0);
+  const [savings, setSavings] = useState(0);
+  const [batteryCost, setBatteryCost] = useState(0);
+  const [co2Reduction, setCo2Reduction] = useState(0);
+
+  useEffect(() => {
+    const ratePerKm = {
+      "Xe tay ga": 0.3,
+      "Xe số": 0.25,
+      "Xe ô tô": 0.7,
+    };
+    const fuelPrice = 25000;
+    const batteryCostPerKm = 0.2 * 25000;
+    const co2PerKm = 0.12;
+
+    const distancePerWeek = distance * frequency;
+    const consumedFuel = (ratePerKm[vehicle] || 0.3) * distancePerWeek;
+    const calculatedGasCost = consumedFuel * fuelPrice;
+    const calculatedBatteryCost = batteryCostPerKm * distancePerWeek;
+    const calculatedSavings = calculatedGasCost - calculatedBatteryCost;
+    const calculatedCO2 = distancePerWeek * co2PerKm;
+
+    setGasCost(Math.round(calculatedGasCost));
+    setBatteryCost(Math.round(calculatedBatteryCost));
+    setSavings(Math.round(calculatedSavings));
+    setCo2Reduction(Math.round(calculatedCO2));
+  }, [distance, vehicle, frequency]);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <motion.div
+      className="max-w-md mx-auto mt-10 p-6 bg-white shadow-xl rounded-3xl border border-gray-200"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <h1 className="text-3xl font-extrabold text-center mb-4 text-green-700">
+        1 MET CŨNG MET
+      </h1>
+      <p className="text-center text-gray-600 mb-6">
+        Bạn chỉ cần đi bước điện, còn lại để MET lo.
+      </p>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <div className="space-y-5">
+        <div>
+          <Label
+            htmlFor="distance"
+            className="text-sm font-medium text-gray-700"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            Quãng đường di chuyển hàng ngày (km)
+          </Label>
+          <Input
+            id="distance"
+            type="number"
+            className="mt-1"
+            value={distance}
+            onChange={(e) => setDistance(Number(e.target.value))}
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+
+        <div>
+          <Label className="text-sm font-medium text-gray-700">
+            Phương tiện đang sử dụng hiện tại
+          </Label>
+          <Select value={vehicle} onValueChange={setVehicle}>
+            <SelectTrigger className="mt-1">
+              <SelectValue placeholder="Chọn phương tiện" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Xe tay ga">Xe tay ga</SelectItem>
+              <SelectItem value="Xe số">Xe số</SelectItem>
+              <SelectItem value="Xe ô tô">Xe ô tô</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div>
+          <Label className="text-sm font-medium text-gray-700">
+            Tuần suất di chuyển
+          </Label>
+          <Select
+            value={frequency.toString()}
+            onValueChange={(v) => setFrequency(Number(v))}
+          >
+            <SelectTrigger className="mt-1">
+              <SelectValue placeholder="Chọn tần suất" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1">1 ngày/tuần</SelectItem>
+              <SelectItem value="3">3 ngày/tuần</SelectItem>
+              <SelectItem value="5">5 ngày/tuần</SelectItem>
+              <SelectItem value="7">7 ngày/tuần</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <Label className="text-sm font-medium text-gray-700">
+            Bật định vị để xác định vị trí
+          </Label>
+          <Switch
+            checked={locationEnabled}
+            onCheckedChange={setLocationEnabled}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 mt-8">
+        {[
+          {
+            label: "Số tiền xăng tiêu hao",
+            value: `${gasCost.toLocaleString()} ₫`,
+          },
+          {
+            label: "Số tiền tiết kiệm",
+            value: `${savings.toLocaleString()} ₫`,
+          },
+          {
+            label: "% pin cần dùng (ước tính chi phí pin)",
+            value: `${batteryCost.toLocaleString()} ₫`,
+          },
+          {
+            label: "Lượng CO₂ giảm thải",
+            value: `~${co2Reduction} kg`,
+          },
+        ].map((item, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <Card className="p-4 text-center border border-green-100 shadow-sm">
+              <CardContent>
+                <p className="text-xs text-gray-500">{item.label}</p>
+                <p className="text-lg font-bold text-green-700 mt-2">
+                  {item.value}
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
   );
 }
