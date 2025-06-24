@@ -26,7 +26,7 @@ export default function MetSavingCalculator() {
   const [co2Reduction, setCo2Reduction] = useState(0);
 
   useEffect(() => {
-    const ratePerKm = {
+    const ratePerKm: Record<string, number> = {
       "Xe tay ga": 0.3,
       "Xe số": 0.25,
       "Xe ô tô": 0.7,
@@ -56,7 +56,7 @@ export default function MetSavingCalculator() {
       transition={{ duration: 0.6 }}
     >
       <h1 className="text-3xl font-extrabold text-center mb-4 text-green-700">
-        1 MET CŨNG MET
+        1 MÉT CÙNG MET
       </h1>
       <p className="text-center text-gray-600 mb-6">
         Chỉ cần vượt ngàn MÉT, còn lại để MET lo.
