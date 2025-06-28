@@ -146,7 +146,7 @@ export default function MetSavingCalculator() {
             value: `${savings.toLocaleString()} VNĐ`,
           },
           {
-            label: "% Pin cần dùng (ước tính)",
+            label: "% Pin ước tính",
             value: `${batteryCost.toLocaleString()} VNĐ`,
           },
           {
