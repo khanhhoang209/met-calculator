@@ -55,12 +55,21 @@ export default function MetSavingCalculator() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <h1 className="text-3xl font-extrabold text-center mb-4 text-green-700">
-        1 MÉT CÙNG MET
+      <h1
+        className="text-3xl font-extrabold text-center mb-4 whitespace-nowrap"
+        style={{
+          color: "#d7f00f",
+          WebkitTextStroke: "1px black",
+        }}
+      >
+        CHỈ CẦN VƯỢT NGÀN MÉT
       </h1>
-      <p className="text-center text-gray-600 mb-6">
-        Chỉ cần vượt ngàn MÉT, còn lại để MET lo.
-      </p>
+      <h1
+        className="text-3xl font-extrabold text-center mb-4"
+        style={{ color: "#d7f00f", WebkitTextStroke: "1px black" }}
+      >
+        CÒN LẠI ĐỂ MET LO
+      </h1>
 
       <div className="space-y-5">
         <div>
@@ -122,23 +131,24 @@ export default function MetSavingCalculator() {
           <Switch
             checked={locationEnabled}
             onCheckedChange={setLocationEnabled}
+            className="data-[state=checked]:bg-[#d7f00f] data-[state=unchecked]:bg-gray-200"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mt-8">
+      <div className="grid grid-cols-2 gap-4 mt-8 whitespace-nowrap">
         {[
           {
             label: "Số tiền xăng tiêu hao",
-            value: `${gasCost.toLocaleString()} ₫`,
+            value: `${gasCost.toLocaleString()} VNĐ`,
           },
           {
             label: "Số tiền tiết kiệm",
-            value: `${savings.toLocaleString()} ₫`,
+            value: `${savings.toLocaleString()} VNĐ`,
           },
           {
-            label: "% pin cần dùng (ước tính chi phí pin)",
-            value: `${batteryCost.toLocaleString()} ₫`,
+            label: "% Pin cần dùng (ước tính)",
+            value: `${batteryCost.toLocaleString()} VNĐ`,
           },
           {
             label: "Lượng CO₂ giảm thải",
@@ -153,7 +163,10 @@ export default function MetSavingCalculator() {
             <Card className="p-4 text-center border border-green-100 shadow-sm">
               <CardContent>
                 <p className="text-xs text-gray-500">{item.label}</p>
-                <p className="text-lg font-bold text-green-700 mt-2">
+                <p
+                  className="text-lg font-bold mt-2"
+                  style={{ color: "#d7f00f" }}
+                >
                   {item.value}
                 </p>
               </CardContent>
