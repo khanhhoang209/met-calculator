@@ -59,14 +59,13 @@ export default function MetSavingCalculator() {
         className="text-3xl font-extrabold text-center mb-4 whitespace-nowrap"
         style={{
           color: "#d7f00f",
-          WebkitTextStroke: "1px black",
         }}
       >
         CHỈ CẦN VƯỢT NGÀN MÉT
       </h1>
       <h1
         className="text-3xl font-extrabold text-center mb-4"
-        style={{ color: "#d7f00f", WebkitTextStroke: "1px black" }}
+        style={{ color: "#d7f00f" }}
       >
         CÒN LẠI ĐỂ MET LO
       </h1>
