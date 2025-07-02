@@ -51,6 +51,7 @@ export default function MetSavingCalculator() {
   return (
     <motion.div
       className="max-w-md mx-auto mt-10 p-6 bg-white shadow-xl rounded-3xl border border-gray-200"
+      style={{ backgroundColor: "#000000", color: "#ffffff" }}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -58,24 +59,21 @@ export default function MetSavingCalculator() {
       <h1
         className="text-3xl font-extrabold text-center mb-4 whitespace-nowrap"
         style={{
-          color: "#d7f00f",
+          color: "#d7f010",
         }}
       >
         CHỈ CẦN VƯỢT NGÀN MÉT
       </h1>
       <h1
         className="text-3xl font-extrabold text-center mb-4"
-        style={{ color: "#d7f00f" }}
+        style={{ color: "#d7f010" }}
       >
         CÒN LẠI ĐỂ MET LO
       </h1>
 
       <div className="space-y-5">
         <div>
-          <Label
-            htmlFor="distance"
-            className="text-sm font-medium text-gray-700"
-          >
+          <Label htmlFor="distance" className="text-sm font-bold text-white">
             Quãng đường di chuyển hàng ngày (km)
           </Label>
           <Input
@@ -88,7 +86,7 @@ export default function MetSavingCalculator() {
         </div>
 
         <div>
-          <Label className="text-sm font-medium text-gray-700">
+          <Label className="text-sm font-bold text-white">
             Phương tiện đang sử dụng hiện tại
           </Label>
           <Select value={vehicle} onValueChange={setVehicle}>
@@ -104,7 +102,7 @@ export default function MetSavingCalculator() {
         </div>
 
         <div>
-          <Label className="text-sm font-medium text-gray-700">
+          <Label className="text-sm font-bold text-white">
             Tuần suất di chuyển
           </Label>
           <Select
@@ -124,7 +122,7 @@ export default function MetSavingCalculator() {
         </div>
 
         <div className="flex items-center justify-between">
-          <Label className="text-sm font-medium text-gray-700">
+          <Label className="text-sm font-bold text-white">
             Bật định vị để xác định vị trí
           </Label>
           <Switch
@@ -135,7 +133,7 @@ export default function MetSavingCalculator() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mt-8 whitespace-nowrap">
+      <div className="grid grid-cols-2 gap-4 mt-8 whitespace-nowrap font-bold">
         {[
           {
             label: "Số tiền xăng tiêu hao",
@@ -161,10 +159,10 @@ export default function MetSavingCalculator() {
           >
             <Card className="p-4 text-center border border-green-100 shadow-sm">
               <CardContent>
-                <p className="text-xs text-gray-500">{item.label}</p>
+                <p className="text-xs text-black">{item.label}</p>
                 <p
                   className="text-lg font-bold mt-2"
-                  style={{ color: "#d7f00f" }}
+                  style={{ color: "#d7f010" }}
                 >
                   {item.value}
                 </p>
